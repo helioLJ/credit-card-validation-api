@@ -29,7 +29,7 @@ public class CreditCardValidationService {
             SimpleDateFormat sdf = new SimpleDateFormat("MM/yy");
             Date expDate = sdf.parse(expiryDate);
             Date currentDate = new Date();
-
+            // The expiry date of the credit card (year and month) must be AFTER present time
             return expDate.after(currentDate);
         } catch (ParseException e) {
             return false;
@@ -38,17 +38,28 @@ public class CreditCardValidationService {
 
     private static boolean isValidCVV(String cardNumber, String cvv) {
         if (cardNumber.startsWith("34") || cardNumber.startsWith("37")) {
+            // Unless it’s an American Express card, in which case the CVV must be exactly 4 digits long
             return cvv.length() == 4;
         } else {
+            // The CVV (security code) of the credit card must be exactly 3 digits long
             return cvv.length() == 3;
         }
     }
 
     private static boolean isValidCardNumber(String cardNumber) {
-        if (cardNumber.length() < 16 || cardNumber.length() > 19) {
-            return false;
+        if (cardNumber.startsWith("34") || cardNumber.startsWith("37")) {
+            // Unless it’s an American Express card, in which case the PAN can be 15 digits long
+            if (cardNumber.length() < 15 || cardNumber.length() > 19) {
+                return false;
+            }
+        } else {
+            // The PAN (card number) is between 16 and 19 digits long
+            if (cardNumber.length() < 16 || cardNumber.length() > 19) {
+                return false;
+            }
         }
 
+        // Last digit of the PAN (card number) is checked using Luhn’s algorithm
         if (!isLuhnValid(cardNumber)) {
             return false;
         }

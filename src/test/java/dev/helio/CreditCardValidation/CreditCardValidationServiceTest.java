@@ -20,6 +20,22 @@ public class CreditCardValidationServiceTest {
     }
 
     @Test
+    void testValidAmexCreditCard() {
+        CreditCard validCreditCard = new CreditCard("340560975259351", "02/27", "2794");
+
+        boolean isValid = creditCardValidationService.validateCreditCard(validCreditCard);
+        assertTrue(isValid);
+    }
+
+    @Test
+    void testInvalidAmexCreditCard() {
+        CreditCard validCreditCard = new CreditCard("340560975259351", "02/27", "279");
+
+        boolean isValid = creditCardValidationService.validateCreditCard(validCreditCard);
+        assertFalse(isValid);
+    }
+
+    @Test
     void testInvalidCardNumber() {
         CreditCard invalidCreditCard = new CreditCard("340845862098539", "02/25", "386");
 
