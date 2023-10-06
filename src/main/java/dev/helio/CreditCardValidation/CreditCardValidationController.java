@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class CreditCardValidationController {
     @Autowired
     private CreditCardValidationService creditCardValidationService;
-    @CrossOrigin(origins = "http://localhost:8080")
+    @CrossOrigin(origins = "http://localhost:5173")
     @PostMapping
     public ResponseEntity<String> validateCreditCard(@RequestBody CreditCard creditCard) {
         boolean isValid = creditCardValidationService.validateCreditCard(creditCard);
