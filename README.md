@@ -1,5 +1,8 @@
 # Credit Card Validation Task Solution
+
 This repository contains the back-end solution for the Credit Card Validation task.
+
+![Imgur](https://i.imgur.com/nnrMfkk.gif)
 
 ## Prerequisites
 Before running the application and tests, ensure that you have the following installed on your system:
